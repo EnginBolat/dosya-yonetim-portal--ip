@@ -33,26 +33,6 @@
   ],
   "files": [
     {
-      "id": 1,
-      "dosyaAdi": "Test1",
-      "dosyaBoyut": 2,
-      "dosyaBoyutTuru": "0",
-      "userId": 2,
-      "dosyaAdminOzelMi": "1",
-      "dosyaYuklenmeTarihi": "1669907883653",
-      "dosyaDuzenlenmeTarihi": "1669908041773"
-    },
-    {
-      "id": 2,
-      "dosyaAdi": "aa",
-      "dosyaBoyut": 23,
-      "dosyaBoyutTuru": "0",
-      "userId": 1,
-      "dosyaAdminOzelMi": "1",
-      "dosyaYuklenmeTarihi": "1670012026044",
-      "dosyaDuzenlenmeTarihi": "1670012026044"
-    },
-    {
       "id": 3,
       "dosyaAdi": "Test3",
       "dosyaBoyut": 24,
@@ -60,17 +40,41 @@
       "userId": 3,
       "dosyaAdminOzelMi": "0",
       "dosyaYuklenmeTarihi": "1670012077984",
-      "dosyaDuzenlenmeTarihi": "1670012077984"
+      "dosyaDuzenlenmeTarihi": "1670012077984",
+      "dosyaYukleyenKadi": "admin"
     },
     {
-      "id": 4,
-      "dosyaAdi": "engin",
-      "dosyaBoyut": 2,
+      "id": 5,
+      "dosyaAdi": "test123123",
+      "dosyaBoyut": 12,
       "dosyaBoyutTuru": "0",
-      "usersId": 1,
+      "usersId": null,
       "dosyaAdminOzelMi": "0",
-      "dosyaYuklenmeTarihi": "1670060723032",
-      "dosyaDuzenlenmeTarihi": "1670060723032"
+      "dosyaYuklenmeTarihi": "1670071997878",
+      "dosyaDuzenlenmeTarihi": "1670071997878",
+      "dosyaYukleyenKadi": "admin"
+    },
+    {
+      "id": 6,
+      "dosyaAdi": "Test123123",
+      "dosyaBoyut": 23,
+      "dosyaBoyutTuru": "0",
+      "usersId": null,
+      "dosyaAdminOzelMi": "1",
+      "dosyaYuklenmeTarihi": "1670072014972",
+      "dosyaDuzenlenmeTarihi": "1670072014972",
+      "dosyaYukleyenKadi": "Enginbolat"
+    },
+    {
+      "id": 7,
+      "dosyaAdi": "a",
+      "dosyaBoyut": 23,
+      "dosyaBoyutTuru": "0",
+      "usersId": null,
+      "dosyaAdminOzelMi": "1",
+      "dosyaYuklenmeTarihi": "1670072226314",
+      "dosyaDuzenlenmeTarihi": "1670072226314",
+      "dosyaYukleyenKadi": "Enginbolat"
     }
   ]
 }
