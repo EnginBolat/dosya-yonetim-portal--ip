@@ -19,7 +19,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let dosya of dosyalar">
-            <td>{{dosya.userId}}</td>
+            <td>{{dosya.dosyaYukleyenKadi}}</td>
             <td>{{dosya.userId}}</td>
             <td>{{dosya.dosyaAdi}}</td>
             <td>{{dosya.dosyaBoyut}}</td>
@@ -71,8 +71,9 @@
             <input type="file" class="form-control mt-2" name="photo">
             <input type="hidden" class="form-control" formControlName="id">
             <input type="hidden" class="form-control" formControlName="dosyaYuklenmeTarihi">
-            <input type="hidden" class="form-control" formControlName="dosyaDuzenlenmeTarihi">
-            <input type="hidden" class="form-control" formControlName="usersId">
+            <input type="hidden" class="form-control" formControlName="dosyaYuklenmeTarihi">
+            <input type="hidden" class="form-control" formControlName="dosyaYukleyenKadi">
+            <input type="hidden" class="form-control" formControlName="userId">
           </div>
         </div>
         <div class="modal-footer">

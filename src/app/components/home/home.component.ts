@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
     dosyaAdminOzelMi: new FormControl(),
     dosyaYuklenmeTarihi: new FormControl(),
     dosyaDuzenlenmeTarihi: new FormControl(),
+    dosyaYukleyenKadi: new FormControl(),
   });
 
   constructor(public servis: DatabaseService, public toast: MytoastService) {}
@@ -58,7 +59,7 @@ export class HomeComponent implements OnInit {
   }
 
   UyeListele(id: number) {
-    this.servis.UyeByDosyaId(id).subscribe((d)=>{
+    this.servis.UyeByDosyaId(id).subscribe((d) => {
       this.uyeler = d;
     });
   }
@@ -82,7 +83,8 @@ export class HomeComponent implements OnInit {
         this.sonuc.mesaj = 'Girilen Dosya Kayıtlıdır!';
         this.toast.ToastUygula(this.sonuc);
       } else {
-        // dosya.usersId = this.servis.aktifUye.id;
+        dosya.dosyaYukleyenKadi = this.servis.aktifUye.kullaniciKadi;
+        dosya.userId = this.servis.aktifUye.id;
         dosya.dosyaYuklenmeTarihi = tarih.getTime().toString();
         dosya.dosyaDuzenlenmeTarihi = tarih.getTime().toString();
         this.servis.DosyaEkle(dosya).subscribe((d) => {
