@@ -7,4 +7,5 @@ export class DosyaModel {
     dosyaDuzenlenmeTarihi!:string;
     userId!:number;
     dosyaAdminOzelMi!:number;
+    dosyaYukleyenKadi!:string;
 }
