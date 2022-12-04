@@ -27,14 +27,12 @@ export class DatabaseService {
   AktifUyeBilgi() {
     if (localStorage.getItem("kadi")) {
       this.aktifUye.kullaniciKadi = localStorage.getItem("kadi") || "";
+      var id = localStorage.getItem("id") || "0";
+      this.aktifUye.id = parseInt(id);
       var admin = localStorage.getItem("adminMi") || "0";
       this.aktifUye.kullaniciAdminMi = parseInt(admin);
     }
   }
-
-  // AktifUyeAdminMi(){
-  //   if(localStorage.getItem(admin))
-  // }
 
   UyeListele() {
     return this.http.get<UyeModel[]>(this.apiUrl + "users");

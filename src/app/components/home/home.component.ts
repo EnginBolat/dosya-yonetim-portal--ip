@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.DosyalariListele();
-    console.log(this.servis.aktifUye.id);
+    this.servis.AktifUyeBilgi();
   }
 
   Ekle(el: HTMLElement) {
@@ -84,7 +84,9 @@ export class HomeComponent implements OnInit {
         this.toast.ToastUygula(this.sonuc);
       } else {
         dosya.dosyaYukleyenKadi = this.servis.aktifUye.kullaniciKadi;
+        console.log(this.servis.aktifUye.kullaniciKadi);
         dosya.userId = this.servis.aktifUye.id;
+        console.log(this.servis.aktifUye.id);
         dosya.dosyaYuklenmeTarihi = tarih.getTime().toString();
         dosya.dosyaDuzenlenmeTarihi = tarih.getTime().toString();
         this.servis.DosyaEkle(dosya).subscribe((d) => {

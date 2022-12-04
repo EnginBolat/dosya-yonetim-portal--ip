@@ -2,12 +2,10 @@
   <div class="row">
     <div class="col-12">
       <h3>Dosyalar</h3>
-      <button class="btn btn-outline-primary" (click)="Ekle(modalEkleDuzenle)"
-        [disabled]="servis.aktifUye.kullaniciAdminMi==1">Dosya Ekle</button>
+      <button class="btn btn-outline-danger" (click)="Ekle(modalEkleDuzenle)">Dosya Ekle</button>
       <table class="table table-hover mt-3">
         <thead>
           <th>Kullanıcı Adı</th>
-          <th>Kullanıcı Id</th>
           <th>Dosya Adı</th>
           <th>Dosya Boyut</th>
           <th>Dosya Boyut Türü</th>
@@ -19,19 +17,18 @@
         </thead>
         <tbody>
           <tr *ngFor="let dosya of dosyalar">
-            <td>{{dosya.dosyaYukleyenKadi}}</td>
-            <td>{{dosya.userId}}</td>
+            <td id="dosyaYukleyenKadi"><a href="/profile">{{dosya.dosyaYukleyenKadi}}</a></td>
             <td>{{dosya.dosyaAdi}}</td>
             <td>{{dosya.dosyaBoyut}}</td>
             <td>{{(dosya.dosyaBoyutTuru == 1 ? "MB" : "GB")}}</td>
             <td>{{dosya.dosyaYuklenmeTarihi | date:'dd.MM.yyyy hh:mm:ss'}}</td>
             <td>{{dosya.dosyaDuzenlenmeTarihi | date:'dd.MM.yyyy hh:mm:ss'}}</td>
             <td>
-              <button class="btn btn-outline-success" (click)="DosyaIndir()">İndir</button>
+              <button class="btn btn-outline-success" (click)="DosyaIndir()" [disabled]="servis.aktifUye.kullaniciAdminMi==1">İndir</button>
             </td>
             <td>
-              <button class="btn btn-outline-warning" (click)="Duzenle(dosya,modalEkleDuzenle)"
-                [disabled]="servis.aktifUye.kullaniciAdminMi==1">Düzenle</button>
+              <button class="btn btn-outline-warning" (click)="Duzenle(dosya,modalEkleDuzenle)" 
+              [disabled]="servis.aktifUye.kullaniciAdminMi==1">Düzenle</button>
             </td>
             <td>
               <button class="btn btn-outline-danger" (click)="Sil(dosya,modalSil)"
@@ -48,7 +45,7 @@
   <div class="modal-dialog">
     <form [formGroup]="frm" (ngSubmit)="DosyaEkleDuzenle()">
       <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
+        <div class="modal-header bg-danger text-white">
           <h5 class="modal-title">{{modalBaslik}}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -78,7 +75,7 @@
         </div>
         <div class="modal-footer">
 
-          <input type="submit" class="btn btn-outline-primary" value="Kaydet">
+          <input type="submit" class="btn btn-outline-success" value="Kaydet">
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
         </div>
       </div>
@@ -96,8 +93,8 @@
         <h6 *ngIf="secDosya">{{secDosya.dosyaAdi}} adlı Dosya Silinecektir Onaylıyor musunuz?</h6>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-outline-danger" *ngIf="secDosya" (click)="DosyaSil()">Sil</button>
-        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kapat</button>
+        <button class="btn btn-outline-success" *ngIf="secDosya" (click)="DosyaSil()">Sil</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
       </div>
     </div>
 

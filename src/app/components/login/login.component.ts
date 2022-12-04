@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
         var kayit: UyeModel = d[0];
         localStorage.setItem("kadi", kayit.kullaniciKadi);
         localStorage.setItem('adminMi',kayit.kullaniciAdminMi.toString());
+        localStorage.setItem('id',kayit.id.toString())
         location.href = "/files";
       } else {
         var s: Sonuc = new Sonuc();
