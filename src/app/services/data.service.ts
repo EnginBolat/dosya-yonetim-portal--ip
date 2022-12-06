@@ -69,4 +69,7 @@ export class DatabaseService {
   DosyaSil(id: number) {
     return this.http.delete(this.apiUrl + "files/" + id);
   }
+  DosyaByUyeId(id:number){
+    return this.http.get<DosyaModel[]>(this.apiUrl + "files?userId=" + id);
+  }
 }
