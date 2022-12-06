@@ -109,7 +109,7 @@ export class HomeComponent implements OnInit {
     }
   }
   DosyaSil() {
-    this.servis.DosyaSil(this.secDosya.id).subscribe((d) => {
+    this.servis.DosyaSil(this.secDosya.id).subscribe((l) => {
       this.sonuc.islem = true;
       this.sonuc.mesaj = 'Dosya Silindi';
       this.toast.ToastUygula(this.sonuc);
