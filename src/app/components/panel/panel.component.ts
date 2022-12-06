@@ -94,18 +94,12 @@ export class PanelComponent implements OnInit {
     }
   }
   DosyaSil() {
-    this.servis.DosyaSil(this.secUye.id).subscribe((d) => {
+    this.servis.UyeSil(this.secUye.id).subscribe((d) => {
       this.sonuc.islem = true;
       this.sonuc.mesaj = 'Üye Silindi';
       this.toast.ToastUygula(this.sonuc);
       this.UyeleriListele();
       this.modal.toggle();
     });
-  }
-
-  DosyaIndir() {
-    this.sonuc.islem = true;
-    this.sonuc.mesaj = 'Üye İndiriliyor';
-    this.toast.ToastUygula(this.sonuc);
   }
 }

@@ -14,22 +14,23 @@
             <a class="nav-link active" aria-current="page" href="/panel">Panel</a>
           </li>
         </ul>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item" *ngIf="!servis.OturumKontrol()">
-            <a class="nav-link active" aria-current="page" href="/login">Oturum Aç</a>
-          </li>
-          <li class="nav-item dropdown" *ngIf="servis.OturumKontrol()">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{servis.aktifUye.kullaniciKadi}}
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" [routerLink]="['/profile',servis.aktifUye.id]">Profil</a></li>
-              <li><a class="dropdown-item" (click)="OturumKapat()">Oturumu Kapat</a></li>
-            </ul>
-          </li>
-        </ul>
+      
       </div>
     </div>
+    <ul class="navbar-nav me-5 mb-2 mb-lg-0">
+      <li class="nav-item" *ngIf="!servis.OturumKontrol()">
+        <a class="nav-link active" aria-current="page" href="/login">Oturum Aç</a>
+      </li>
+      <li class="nav-item dropdown" *ngIf="servis.OturumKontrol()">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{servis.aktifUye.kullaniciKadi}}
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" [routerLink]="['/profile',servis.aktifUye.id]">Profil</a></li>
+          <li><a class="dropdown-item" (click)="OturumKapat()">Oturumu Kapat</a></li>
+        </ul>
+      </li>
+    </ul>
   </nav>
   <div style="height: 50px;"></div>
 <router-outlet>

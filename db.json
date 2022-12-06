@@ -4,11 +4,11 @@
       "id": 1,
       "kullaniciAdi": "Engin",
       "kullaniciSoyad": "Bolat",
-      "kullaniciKadi": "Enginbolat",
+      "kullaniciKadi": "enginn.blt",
       "kullaniciEmail": "engi.bolat@gmail.com",
       "kullaniciSifre": "123",
-      "kullaniciAdminMi": 0,
-      "kullaniciKayitTarihi": "1670172317775"
+      "kullaniciAdminMi": "0",
+      "kullaniciKayitTarihi": "1670322848552"
     },
     {
       "id": 2,
@@ -18,76 +18,58 @@
       "kullaniciEmail": "abuabu@mail.com",
       "kullaniciSifre": "123",
       "kullaniciAdminMi": "1",
-      "kullaniciKayitTarihi": "1670061203023"
+      "kullaniciKayitTarihi": "1670322848552"
     },
     {
       "id": 3,
-      "kullaniciAdi": "admin",
-      "kullaniciSoyad": "admin",
-      "kullaniciKadi": "admin",
-      "kullaniciEmail": "admin",
-      "kullaniciSifre": "admin",
+      "kullaniciAdi": "root",
+      "kullaniciSoyad": null,
+      "kullaniciKadi": "root",
+      "kullaniciEmail": "root",
+      "kullaniciSifre": "root",
       "kullaniciAdminMi": "0",
-      "kullaniciKayitTarihi": "1670012060722"
-    },
-    {
-      "id": 4,
-      "kullaniciAdi": "a",
-      "kullaniciSoyad": "b",
-      "kullaniciKadi": "sd",
-      "kullaniciEmail": "sad",
-      "kullaniciSifre": "asd",
-      "kullaniciAdminMi": "1",
-      "kullaniciKayitTarihi": "1670306100626"
+      "kullaniciKayitTarihi": "1670322856448"
     }
   ],
   "files": [
     {
-      "id": 9,
-      "dosyaAdi": "asdasdas",
-      "dosyaBoyut": 123,
+      "id": 1,
+      "dosyaAdi": null,
+      "photo": null,
+      "dosyaBoyut": null,
+      "dosyaBoyutTuru": null,
+      "usersId": null,
+      "dosyaAdminOzelMi": null,
+      "dosyaYuklenmeTarihi": "1670328207250",
+      "dosyaDuzenlenmeTarihi": "1670328207250",
+      "dosyaYukleyenKadi": "enginn.blt",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "dosyaAdi": "e",
+      "photo": null,
+      "dosyaBoyut": 23,
       "dosyaBoyutTuru": "0",
+      "usersId": null,
       "dosyaAdminOzelMi": "1",
-      "dosyaYuklenmeTarihi": "1670074907804",
-      "dosyaDuzenlenmeTarihi": "1670074907804",
+      "dosyaYuklenmeTarihi": "1670330005584",
+      "dosyaDuzenlenmeTarihi": "1670330005584",
+      "dosyaYukleyenKadi": "enginn.blt",
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "dosyaAdi": "a",
+      "photo": null,
+      "dosyaBoyut": 23,
+      "dosyaBoyutTuru": "0",
+      "usersId": null,
+      "dosyaAdminOzelMi": "1",
+      "dosyaYuklenmeTarihi": "1670330048855",
+      "dosyaDuzenlenmeTarihi": "1670330048855",
       "dosyaYukleyenKadi": "abudabu",
       "userId": 2
-    },
-    {
-      "id": 11,
-      "dosyaAdi": "enginkullaniciTest",
-      "dosyaBoyut": 256,
-      "dosyaBoyutTuru": "1",
-      "usersId": null,
-      "dosyaAdminOzelMi": "0",
-      "dosyaYuklenmeTarihi": "1670244775625",
-      "dosyaDuzenlenmeTarihi": "1670244775625",
-      "dosyaYukleyenKadi": "Enginbolat",
-      "userId": 1
-    },
-    {
-      "id": 12,
-      "dosyaAdi": "şqoıgjhqıo",
-      "dosyaBoyut": 23,
-      "dosyaBoyutTuru": "0",
-      "usersId": null,
-      "dosyaAdminOzelMi": "1",
-      "dosyaYuklenmeTarihi": "1670244977785",
-      "dosyaDuzenlenmeTarihi": "1670244977785",
-      "dosyaYukleyenKadi": "Enginbolat",
-      "userId": 1
-    },
-    {
-      "id": 13,
-      "dosyaAdi": "asd",
-      "dosyaBoyut": 23,
-      "dosyaBoyutTuru": "0",
-      "usersId": null,
-      "dosyaAdminOzelMi": "1",
-      "dosyaYuklenmeTarihi": "1670306288518",
-      "dosyaDuzenlenmeTarihi": "1670306288518",
-      "dosyaYukleyenKadi": "admin",
-      "userId": 3
     }
   ]
 }

@@ -11,29 +11,26 @@
           <th>Dosya Boyut Türü</th>
           <th>Kayıt Tarihi</th>
           <th>Son Düzenleme Tarihi</th>
-          <th>İndir</th>
-          <th>Düzenle</th>
-          <th>Sil</th>
         </thead>
         <tbody>
           <tr *ngFor="let dosya of dosyalar">
-            <td id="dosyaYukleyenKadi" [routerLink]="['/profile',dosya.userId]">{{dosya.dosyaYukleyenKadi}}</td>
+            <td id="dosyaYukleyenKadi" [routerLink]="['/profile',dosya.userId]" style="font-weight: 300;">
+              {{dosya.dosyaYukleyenKadi}}</td>
             <td>{{dosya.dosyaAdi}}</td>
             <td>{{dosya.dosyaBoyut}}</td>
             <td>{{(dosya.dosyaBoyutTuru == 1 ? "MB" : "GB")}}</td>
             <td>{{dosya.dosyaYuklenmeTarihi | date:'dd.MM.yyyy hh:mm:ss'}}</td>
             <td>{{dosya.dosyaDuzenlenmeTarihi | date:'dd.MM.yyyy hh:mm:ss'}}</td>
             <td>
-              <button class="btn btn-outline-success" (click)="DosyaIndir()"
-                [disabled]="servis.aktifUye.kullaniciAdminMi==1">İndir</button>
+              <button class="btn btn-outline-success" (click)="DosyaIndir()">İndir</button>
             </td>
             <td>
               <button class="btn btn-outline-warning" (click)="Duzenle(dosya,modalEkleDuzenle)"
-                [disabled]="servis.aktifUye.kullaniciAdminMi==1">Düzenle</button>
+                *ngIf="servis.aktifUye.kullaniciAdminMi == 0 || servis.aktifUye.id == dosya.userId">Düzenle</button>
             </td>
             <td>
               <button class="btn btn-outline-danger" (click)="Sil(dosya,modalSil)"
-                [disabled]="servis.aktifUye.kullaniciAdminMi==1">Sil</button>
+                *ngIf="servis.aktifUye.kullaniciAdminMi == 0 ||  servis.aktifUye.id == dosya.userId">Sil</button>
             </td>
           </tr>
         </tbody>

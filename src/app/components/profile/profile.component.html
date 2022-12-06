@@ -3,7 +3,7 @@
   <div class="col-md-4 mt-5">
     <h2>{{uye.kullaniciAdi + " " + uye.kullaniciSoyad}}</h2>
     <h6 style="color: grey;">{{"@"+uye.kullaniciKadi}}</h6>
-    <h6 style="color: grey;">Yüklenen Dosya Sayısı:{{dosyalar.length}}</h6>
+    <h6 style="color: grey;">Yüklenen Dosya Sayısı: {{dosyalar.length}}</h6>
   </div>
   <table class="table table-hover mt-3">
     <thead>
@@ -13,7 +13,6 @@
       <th>Dosya Boyut Türü</th>
       <th>Kayıt Tarihi</th>
       <th>Son Düzenleme Tarihi</th>
-      <th>İndir</th>
     </thead>
     <tbody>
       <tr *ngFor="let dosya of dosyalar">
@@ -26,7 +25,74 @@
         <td>
           <button class="btn btn-outline-success" (click)="DosyaIndir()" [disabled]="servis.aktifUye.kullaniciAdminMi==1">İndir</button>
         </td>
+        <td>
+          <button class="btn btn-outline-warning" (click)="Duzenle(dosya,modalEkleDuzenle)"
+            *ngIf="servis.aktifUye.kullaniciAdminMi == 0 || servis.aktifUye.id == dosya.userId">Düzenle</button>
+        </td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="Sil(dosya,modalSil)"
+            *ngIf="servis.aktifUye.kullaniciAdminMi == 0 ||  servis.aktifUye.id == dosya.userId">Sil</button>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
+<div class="modal" tabindex="-1" #modalEkleDuzenle>
+  <div class="modal-dialog">
+    <form [formGroup]="frm" (ngSubmit)="DosyaEkleDuzenle()">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">{{modalBaslik}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Dosya Adı</label>
+            <input type="text" class="form-control" formControlName="dosyaAdi">
+            <label>Dosya Boyut</label>
+            <input type="number" [min]="0" min="0" class="form-control" formControlName="dosyaBoyut">
+            <label>Dosya Boyut Türü</label>
+            <select class="form-control" formControlName="dosyaBoyutTuru">
+              <option value="1">MB</option>
+              <option value="0">GB</option>
+            </select>
+            <label>Yönetici Özel Mi?</label>
+            <select class="form-control" formControlName="dosyaAdminOzelMi">
+              <option value="1">Evet</option>
+              <option value="0">Hayır</option>
+            </select>
+            <input type="file" class="form-control mt-2" name="photo">
+            <input type="hidden" class="form-control" formControlName="id">
+            <input type="hidden" class="form-control" formControlName="dosyaYuklenmeTarihi">
+            <input type="hidden" class="form-control" formControlName="dosyaYuklenmeTarihi">
+            <input type="hidden" class="form-control" formControlName="dosyaYukleyenKadi">
+            <input type="hidden" class="form-control" formControlName="userId">
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <input type="submit" class="btn btn-outline-success" value="Kaydet">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal" tabindex="-1" #modalSil>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">{{modalBaslik}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6 *ngIf="secDosya">{{secDosya.dosyaAdi}} adlı Dosya Silinecektir Onaylıyor musunuz?</h6>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-success" *ngIf="secDosya" (click)="DosyaSil()">Sil</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
+      </div>
+    </div>
+
+  </div>
+<!-- </div> -->

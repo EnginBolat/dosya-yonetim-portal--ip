@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   frm: FormGroup = new FormGroup({
     id: new FormControl(),
     dosyaAdi: new FormControl(),
+    photo : new FormControl(),
     dosyaBoyut: new FormControl(),
     dosyaBoyutTuru: new FormControl(),
     usersId: new FormControl(),
@@ -84,9 +85,7 @@ export class HomeComponent implements OnInit {
         this.toast.ToastUygula(this.sonuc);
       } else {
         dosya.dosyaYukleyenKadi = this.servis.aktifUye.kullaniciKadi;
-        console.log(this.servis.aktifUye.kullaniciKadi);
         dosya.userId = this.servis.aktifUye.id;
-        console.log(this.servis.aktifUye.id);
         dosya.dosyaYuklenmeTarihi = tarih.getTime().toString();
         dosya.dosyaDuzenlenmeTarihi = tarih.getTime().toString();
         this.servis.DosyaEkle(dosya).subscribe((d) => {
@@ -116,6 +115,7 @@ export class HomeComponent implements OnInit {
       this.DosyalariListele();
       this.modal.toggle();
     });
+
   }
 
   DosyaIndir() {
