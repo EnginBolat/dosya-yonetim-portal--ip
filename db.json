@@ -29,32 +29,65 @@
       "kullaniciSifre": "admin",
       "kullaniciAdminMi": "0",
       "kullaniciKayitTarihi": "1670012060722"
+    },
+    {
+      "id": 4,
+      "kullaniciAdi": "a",
+      "kullaniciSoyad": "b",
+      "kullaniciKadi": "sd",
+      "kullaniciEmail": "sad",
+      "kullaniciSifre": "asd",
+      "kullaniciAdminMi": "1",
+      "kullaniciKayitTarihi": "1670306100626"
     }
   ],
   "files": [
-    {
-      "id": 8,
-      "dosyaAdi": "1635test",
-      "dosyaBoyut": 256,
-      "dosyaBoyutTuru": "1",
-      "usersId": null,
-      "dosyaAdminOzelMi": "1",
-      "dosyaYuklenmeTarihi": "1670074484320",
-      "dosyaDuzenlenmeTarihi": "1670074484320",
-      "dosyaYukleyenKadi": "admin",
-      "userId": 3
-    },
     {
       "id": 9,
       "dosyaAdi": "asdasdas",
       "dosyaBoyut": 123,
       "dosyaBoyutTuru": "0",
-      "usersId": null,
       "dosyaAdminOzelMi": "1",
       "dosyaYuklenmeTarihi": "1670074907804",
       "dosyaDuzenlenmeTarihi": "1670074907804",
       "dosyaYukleyenKadi": "abudabu",
       "userId": 2
+    },
+    {
+      "id": 11,
+      "dosyaAdi": "enginkullaniciTest",
+      "dosyaBoyut": 256,
+      "dosyaBoyutTuru": "1",
+      "usersId": null,
+      "dosyaAdminOzelMi": "0",
+      "dosyaYuklenmeTarihi": "1670244775625",
+      "dosyaDuzenlenmeTarihi": "1670244775625",
+      "dosyaYukleyenKadi": "Enginbolat",
+      "userId": 1
+    },
+    {
+      "id": 12,
+      "dosyaAdi": "şqoıgjhqıo",
+      "dosyaBoyut": 23,
+      "dosyaBoyutTuru": "0",
+      "usersId": null,
+      "dosyaAdminOzelMi": "1",
+      "dosyaYuklenmeTarihi": "1670244977785",
+      "dosyaDuzenlenmeTarihi": "1670244977785",
+      "dosyaYukleyenKadi": "Enginbolat",
+      "userId": 1
+    },
+    {
+      "id": 13,
+      "dosyaAdi": "asd",
+      "dosyaBoyut": 23,
+      "dosyaBoyutTuru": "0",
+      "usersId": null,
+      "dosyaAdminOzelMi": "1",
+      "dosyaYuklenmeTarihi": "1670306288518",
+      "dosyaDuzenlenmeTarihi": "1670306288518",
+      "dosyaYukleyenKadi": "admin",
+      "userId": 3
     }
   ]
 }
