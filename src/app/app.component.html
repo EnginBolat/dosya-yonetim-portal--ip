@@ -11,7 +11,10 @@
             <a class="nav-link active" aria-current="page" href="/">Dosyalar</a>
           </li>
           <li class="nav-item"  *ngIf="servis.aktifUye.kullaniciAdminMi == 0">
-            <a class="nav-link active" aria-current="page" href="/panel">Panel</a>
+            <a class="nav-link active" aria-current="page" href="/panel">Üye Panel</a>
+          </li>
+          <li class="nav-item"  *ngIf="servis.aktifUye.kullaniciAdminMi == 0">
+            <a class="nav-link active" aria-current="page" href="/panel">İndirilenler</a>
           </li>
         </ul>
       

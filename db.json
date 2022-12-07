@@ -70,6 +70,19 @@
       "dosyaDuzenlenmeTarihi": "1670330048855",
       "dosyaYukleyenKadi": "abudabu",
       "userId": 2
+    },
+    {
+      "id": 4,
+      "dosyaAdi": "asdas",
+      "photo": null,
+      "dosyaBoyut": 23,
+      "dosyaBoyutTuru": "0",
+      "usersId": null,
+      "dosyaAdminOzelMi": "1",
+      "dosyaYuklenmeTarihi": "1670339826950",
+      "dosyaDuzenlenmeTarihi": "1670339826950",
+      "dosyaYukleyenKadi": "enginn.blt",
+      "userId": 1
     }
   ]
 }
