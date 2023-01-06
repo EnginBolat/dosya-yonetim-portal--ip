@@ -1,20 +1,21 @@
+import { UyeModel } from './../../models/uyeModel';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Modal } from 'bootstrap';
 import * as bootstrap from 'bootstrap';
 import { Sonuc } from 'src/app/models/sonucModel';
-import { DatabaseService } from 'src/app/services/data.service';
 import { MytoastService } from 'src/app/services/mytoast.service';
-import { UyeModel } from 'src/app/models/uyeModel';
+import { FirebaseServiceService } from 'src/app/services/FirebaseService.service';
+import { switchMap } from 'rxjs';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-panel',
   templateUrl: './panel.component.html',
-  styleUrls: ['./panel.component.scss']
+  styleUrls: ['./panel.component.scss'],
 })
-
 export class PanelComponent implements OnInit {
- 
+  uye = this.fbServis.AktifUyeBilgi;
   uyeler!: UyeModel[];
   modal!: Modal;
   modalBaslik: string = '';
@@ -22,7 +23,7 @@ export class PanelComponent implements OnInit {
   sonuc: Sonuc = new Sonuc();
   frm: FormGroup = new FormGroup({
     id: new FormControl(),
-    kullaniciAdi: new FormControl(),
+    displayName: new FormControl(),
     kullaniciSoyad: new FormControl(),
     kullaniciKadi: new FormControl(),
     kullaniciEmail: new FormControl(),
@@ -31,7 +32,11 @@ export class PanelComponent implements OnInit {
     kullaniciKayitTarihi: new FormControl(),
   });
 
-  constructor(public servis: DatabaseService, public toast: MytoastService) {}
+  constructor(
+    public fbServis: FirebaseServiceService,
+    public toast: MytoastService,
+    public htoast: HotToastService
+  ) {}
 
   ngOnInit() {
     this.UyeleriListele();
@@ -57,44 +62,42 @@ export class PanelComponent implements OnInit {
   }
 
   UyeleriListele() {
-    this.servis.UyeListele().subscribe((d) => {
+    this.fbServis.ListOfMembers().subscribe((d) => {
       this.uyeler = d;
     });
   }
 
-
-  UyeEkleDuzenle() {
-    var uye: UyeModel = this.frm.value;
+  UyeEkle() {
+    var localUye: UyeModel = this.frm.value;
+    // this.fbServis.AddMember(uye);
     var tarih = new Date();
-    if (!uye.id) {
-      var filtre = this.uyeler.filter((s) => s.kullaniciEmail == uye.kullaniciEmail);
-      if (filtre.length > 0) {
-        this.sonuc.islem = false;
-        this.sonuc.mesaj = 'Girilen Üye Kayıtlıdır!';
-        this.toast.ToastUygula(this.sonuc);
-      } else {
-        uye.kullaniciKayitTarihi = tarih.getTime().toString();
-        this.servis.UyeEkle(uye).subscribe((d) => {
-          this.sonuc.islem = true;
-          this.sonuc.mesaj = 'Üye Eklendi';
-          this.toast.ToastUygula(this.sonuc);
-          this.UyeleriListele();
-          this.modal.toggle();
-        });
-      }
-    } else {
-      uye.kullaniciKayitTarihi = tarih.getTime().toString();
-      this.servis.UyeDuzenle(uye).subscribe((d) => {
-        this.sonuc.islem = true;
-        this.sonuc.mesaj = 'Üye Düzenlendi';
-        this.toast.ToastUygula(this.sonuc);
-        this.UyeleriListele();
-        this.modal.toggle();
-      });
-    }
+    localUye.kullaniciKayitTarihi = tarih.getTime().toString();
+    this.fbServis.KayitOl(localUye.kullaniciEmail!, localUye.kullaniciSifre!).pipe(
+      switchMap(({ user: { uid } }) =>
+        this.fbServis.AddMember({
+          uid: uid,
+          displayName: localUye.displayName,
+          kullaniciSoyad: localUye.kullaniciSoyad,
+          kullaniciKadi: localUye.kullaniciKadi,
+          kullaniciEmail: localUye.kullaniciEmail,
+          kullaniciSifre: localUye.kullaniciSifre,
+          kullaniciAdminMi: localUye.kullaniciAdminMi,
+          kullaniciKayitTarihi: localUye.kullaniciKayitTarihi,
+          grupId: 1,
+        })
+      ),
+      this.htoast.observe({
+        success: 'Kayıt Yapıldı',
+        loading: 'Kayıt Yapılıyor...',
+        error: ({ message }) => `${message}`,
+      })
+    );
   }
-  DosyaSil() {
-    this.servis.UyeSil(this.secUye.id).subscribe((d) => {
+
+  UyeDuzenle() {}
+
+  UyeSil() {
+    this.fbServis.DeleteMember(this.secUye).then((d) => {
       this.sonuc.islem = true;
       this.sonuc.mesaj = 'Üye Silindi';
       this.toast.ToastUygula(this.sonuc);

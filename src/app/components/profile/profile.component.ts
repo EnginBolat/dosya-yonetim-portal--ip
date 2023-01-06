@@ -1,7 +1,7 @@
+import { UyeModel } from 'src/app/models/uyeModel';
+import { GrupModel } from './../../models/grupModel';
 import { DosyaModel } from './../../models/dosyaModel';
-import { UyeModel } from './../../models/uyeModel';
-import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from 'src/app/services/data.service';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { Modal } from 'bootstrap';
 import * as bootstrap from 'bootstrap';
 import { Sonuc } from 'src/app/models/sonucModel';
@@ -9,6 +9,7 @@ import { MytoastService } from 'src/app/services/mytoast.service';
 import { ActivatedRoute } from '@angular/router';
 import { ThisReceiver } from '@angular/compiler';
 import { FormControl, FormGroup } from '@angular/forms';
+import { FirebaseServiceService } from 'src/app/services/FirebaseService.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,8 +17,13 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  uye!: UyeModel;
+  uye = this.fbServis.AktifUyeBilgi;
+  currentUser!: UyeModel;
   dosyalar!: DosyaModel[];
+  uyeler!: UyeModel[];
+  mevcutDosyalar: DosyaModel[] = [];
+  oylesineArray: DosyaModel[] = [];
+  oylesineArray2: UyeModel[] = [];
   sonuc: Sonuc = new Sonuc();
   modal!: Modal;
   secDosya!: DosyaModel;
@@ -37,17 +43,41 @@ export class ProfileComponent implements OnInit {
     dosyaYukleyenKadi: new FormControl(),
   });
   constructor(
-    public servis: DatabaseService,
+    public fbServis: FirebaseServiceService,
     public toast: MytoastService,
     public route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.UyeleriListele();
+    this.DosyalariListele();
     this.route.params.subscribe((p: any) => {
       this.localId = p.profileId;
     });
-    this.UyeBilgiAl(this.localId);
-    this.DosyaAl(this.localId);
+  }
+
+  UyeleriListele() {
+    this.fbServis.ListOfUsers().subscribe((d) => {
+      this.uyeler = d;
+      for (let index = 0; index < this.uyeler.length; index++) {
+        if (this.uyeler[index].uid?.toString() == this.localId.toString()) {
+          this.oylesineArray2.push(this.uyeler[index]);
+        }
+      }
+      this.currentUser = this.oylesineArray2[0];
+    });
+  }
+
+  DosyalariListele() {
+    this.fbServis.ListOfFiles().subscribe((d) => {
+      this.mevcutDosyalar = d;
+      for (let index = 0; index < this.mevcutDosyalar.length; index++) {
+        if (this.mevcutDosyalar[index].userId == this.localId) {
+          this.oylesineArray.push(this.mevcutDosyalar[index]);
+        }
+      }
+      this.dosyalar = this.oylesineArray;
+    });
   }
 
   Ekle(el: HTMLElement) {
@@ -69,67 +99,11 @@ export class ProfileComponent implements OnInit {
     this.modal.show();
   }
 
-  UyeBilgiAl(id: number) {
-    this.servis.UyeById(id).subscribe((p) => {
-      this.uye = p;
-    });
-  }
-
-  DosyaAl(id: number) {
-    this.servis.DosyaByUyeId(id).subscribe((d) => {
-      this.dosyalar = d;
-    });
-    for (let index = 0; index < this.dosyalar.length; index++) {
-      this.localStatus = this.dosyalar[index].userId
-      
-    }
-  }
   DosyaIndir() {
     this.sonuc.islem = true;
     this.sonuc.mesaj = 'Dosya İndiriliyor';
     this.toast.ToastUygula(this.sonuc);
   }
 
-  DosyaEkleDuzenle() {
-    var dosya: DosyaModel = this.frm.value;
-    var tarih = new Date();
-    if (!dosya.id) {
-      var filtre = this.dosyalar.filter((s) => s.dosyaAdi == dosya.dosyaAdi);
-      if (filtre.length > 0) {
-        this.sonuc.islem = false;
-        this.sonuc.mesaj = 'Girilen Dosya Kayıtlıdır!';
-        this.toast.ToastUygula(this.sonuc);
-      } else {
-        dosya.dosyaYukleyenKadi = this.servis.aktifUye.kullaniciKadi;
-        dosya.userId = this.servis.aktifUye.id;
-        dosya.dosyaYuklenmeTarihi = tarih.getTime().toString();
-        dosya.dosyaDuzenlenmeTarihi = tarih.getTime().toString();
-        this.servis.DosyaEkle(dosya).subscribe((d) => {
-          this.sonuc.islem = true;
-          this.sonuc.mesaj = 'Dosya Eklendi';
-          this.toast.ToastUygula(this.sonuc);
-          this.DosyaAl(this.localId);
-          this.modal.toggle();
-        });
-      }
-    } else {
-      dosya.dosyaDuzenlenmeTarihi = tarih.getTime().toString();
-      this.servis.DosyaDuzenle(dosya).subscribe((d) => {
-        this.sonuc.islem = true;
-        this.sonuc.mesaj = 'Dosya Düzenlendi';
-        this.toast.ToastUygula(this.sonuc);
-        this.DosyaAl(this.localId);
-        this.modal.toggle();
-      });
-    }
-  }
-  DosyaSil() {
-    this.servis.DosyaSil(this.secDosya.id).subscribe((l) => {
-      this.sonuc.islem = true;
-      this.sonuc.mesaj = 'Dosya Silindi';
-      this.toast.ToastUygula(this.sonuc);
-      this.DosyaAl(this.localId);
-      this.modal.toggle();
-    });
-  }
+  DosyaEkleDuzenle() {}
 }

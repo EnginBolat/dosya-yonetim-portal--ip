@@ -1,8 +1,8 @@
 <div class="container">
   <div class="col-md-4"></div>
-  <div class="col-md-4 mt-5">
-    <h2>{{uye.kullaniciAdi + " " + uye.kullaniciSoyad}}</h2>
-    <h6 style="color: grey;">{{"@"+uye.kullaniciKadi}}</h6>
+  <div class="col-md-4 mt-5" *ngIf="uye | async as user">
+    <h2>{{currentUser.displayName + " " + currentUser.kullaniciSoyad}}</h2>
+    <h6 style="color: grey;">{{"@"+currentUser.kullaniciKadi}}</h6>
     <h6 style="color: grey;">Yüklenen Dosya Sayısı: {{dosyalar.length}}</h6>
   </div>
   <table class="table table-hover mt-3">
@@ -23,16 +23,16 @@
         <td>{{dosya.dosyaYuklenmeTarihi | date:'dd.MM.yyyy hh:mm:ss'}}</td>
         <td>{{dosya.dosyaDuzenlenmeTarihi | date:'dd.MM.yyyy hh:mm:ss'}}</td>
         <td>
-          <button class="btn btn-outline-success" (click)="DosyaIndir()" [disabled]="servis.aktifUye.kullaniciAdminMi==1">İndir</button>
+          <button class="btn btn-outline-success" (click)="DosyaIndir()">İndir</button>
         </td>
-        <td>
+        <!-- <td>
           <button class="btn btn-outline-warning" (click)="Duzenle(dosya,modalEkleDuzenle)"
             *ngIf="servis.aktifUye.kullaniciAdminMi == 0 || servis.aktifUye.id == dosya.userId">Düzenle</button>
         </td>
         <td>
           <button class="btn btn-outline-danger" (click)="Sil(dosya,modalSil)"
             *ngIf="servis.aktifUye.kullaniciAdminMi == 0 ||  servis.aktifUye.id == dosya.userId">Sil</button>
-        </td>
+        </td>  -->
       </tr>
     </tbody>
   </table>
@@ -70,7 +70,6 @@
           </div>
         </div>
         <div class="modal-footer">
-
           <input type="submit" class="btn btn-outline-success" value="Kaydet">
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
         </div>
@@ -89,10 +88,10 @@
         <h6 *ngIf="secDosya">{{secDosya.dosyaAdi}} adlı Dosya Silinecektir Onaylıyor musunuz?</h6>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-outline-success" *ngIf="secDosya" (click)="DosyaSil()">Sil</button>
+        <!-- <button class="btn btn-outline-success" *ngIf="secDosya" (click)="DosyaSil()">Sil</button> -->
         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
       </div>
     </div>
 
   </div>
-<!-- </div> -->
+</div>

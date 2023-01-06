@@ -16,7 +16,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let uye of uyeler">
-            <td>{{uye.kullaniciAdi}}</td>
+            <td>{{uye.displayName}}</td>
             <td>{{uye.kullaniciSoyad}}</td>
             <td>{{uye.kullaniciKadi}}</td>
             <td>{{uye.kullaniciEmail}}</td>
@@ -24,11 +24,9 @@
               <span *ngIf="uye.kullaniciAdminMi==0" class="badge bg-success">Evet</span>
               <span *ngIf="uye.kullaniciAdminMi==1" class="badge bg-danger">Hayır</span>
             </td>
-            <td>{{uye.kullaniciKayitTarihi | date:'dd.MM.yyyy hh:mm:ss'}}</td>
-            <td><button class="btn btn-outline-warning" (click)="Duzenle(uye,modalEkleDuzenle)"
-                [disabled]="servis.aktifUye.kullaniciAdminMi==1">Düzenle</button></td>
-            <td><button class="btn btn-outline-danger" (click)="Sil(uye,modalSil)"
-                [disabled]="servis.aktifUye.kullaniciAdminMi==1">Sil</button></td>
+            <td>{{uye.kullaniciKayitTarihi}}</td>
+            <td><button class="btn btn-outline-warning" (click)="Duzenle(uye,modalEkleDuzenle)">Düzenle</button></td>
+            <td><button class="btn btn-outline-danger" (click)="Sil(uye,modalSil)">Sil</button></td>
           </tr>
         </tbody>
       </table>
@@ -38,7 +36,7 @@
 
 <div class="modal" tabindex="-1" #modalEkleDuzenle>
   <div class="modal-dialog">
-    <form [formGroup]="frm" (ngSubmit)="UyeEkleDuzenle()">
+    <form [formGroup]="frm" (ngSubmit)="UyeEkle()">
       <div class="modal-content">
         <div class="modal-header bg-danger text-white">
           <h5 class="modal-title">{{modalBaslik}}</h5>
@@ -47,7 +45,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Adı</label>
-            <input type="text" class="form-control" formControlName="kullaniciAdi">
+            <input type="text" class="form-control" formControlName="displayName">
             <label>Soyadı</label>
             <input type="text" class="form-control" formControlName="kullaniciSoyad">
             <label>Kullanıcı Adı</label>
@@ -67,7 +65,7 @@
         </div>
         <div class="modal-footer">
 
-          <input type="submit" class="btn btn-outline-success" value="Kaydet">
+          <input type="submit" class="btn btn-outline-success" value="Kaydet" (click)="UyeEkle()">
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
         </div>
       </div>
@@ -82,10 +80,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h6 *ngIf="secUye">{{secUye.kullaniciAdi}} adlı Üye Silinecektir Onaylıyor musunuz?</h6>
+        <h6 *ngIf="secUye">{{secUye.displayName}} adlı Üye Silinecektir Onaylıyor musunuz?</h6>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-outline-success" *ngIf="secUye" (click)="DosyaSil()">Sil</button>
+        <button class="btn btn-outline-success" *ngIf="secUye" (click)="UyeSil()">Sil</button>
         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
       </div>
     </div>

@@ -1,21 +1,26 @@
-import { DatabaseService } from './services/data.service';
-import { Component, OnInit } from '@angular/core';
-
+import { FirebaseServiceService } from './services/FirebaseService.service';
+import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  title = 'Dosya Yönetim Portalı';
+export class AppComponent {
+  uye = this.fbServis.AktifUyeBilgi;
+
   constructor(
-    public servis: DatabaseService
-  ) { }
-  ngOnInit(): void {
+    public fbServis: FirebaseServiceService,
+    public router: Router
+  ) {
+
   }
+
   OturumKapat() {
-    localStorage.clear();
-    location.href = "";
+    this.fbServis.OturumKapat().subscribe(() => {
+      this.router.navigate(['login']);
+    });
   }
 }

@@ -8,7 +8,8 @@
       "kullaniciEmail": "engi.bolat@gmail.com",
       "kullaniciSifre": "123",
       "kullaniciAdminMi": "0",
-      "kullaniciKayitTarihi": "1670322848552"
+      "kullaniciKayitTarihi": "1670322848552",
+      "grupId" : 3
     },
     {
       "id": 2,
@@ -18,7 +19,8 @@
       "kullaniciEmail": "abuabu@mail.com",
       "kullaniciSifre": "123",
       "kullaniciAdminMi": "1",
-      "kullaniciKayitTarihi": "1670322848552"
+      "kullaniciKayitTarihi": "1670322848552",
+      "grupId" : 2
     },
     {
       "id": 3,
@@ -28,7 +30,8 @@
       "kullaniciEmail": "root",
       "kullaniciSifre": "root",
       "kullaniciAdminMi": "0",
-      "kullaniciKayitTarihi": "1670322856448"
+      "kullaniciKayitTarihi": "1670322856448",
+      "grupId" : 1
     }
   ],
   "files": [
@@ -83,6 +86,20 @@
       "dosyaDuzenlenmeTarihi": "1670339826950",
       "dosyaYukleyenKadi": "enginn.blt",
       "userId": 1
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "grupAd": "Internet-1"
+    },
+    {
+      "id": 2,
+      "grupAd": "Nesne Tabanlı"
+    },
+    {
+      "id": 3,
+      "grupAd": "Grafik Animasyon"
     }
   ]
 }

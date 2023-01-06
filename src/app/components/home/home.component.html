@@ -14,7 +14,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let dosya of dosyalar">
-            <td id="dosyaYukleyenKadi" [routerLink]="['/profile',dosya.userId]" style="font-weight: 300;">
+            <td id="dosyaYukleyenKadi" [routerLink]="['/profile',dosya.userId.toString()]" style="font-weight: 300;">
               {{dosya.dosyaYukleyenKadi}}</td>
             <td>{{dosya.dosyaAdi}}</td>
             <td>{{dosya.dosyaBoyut}}</td>
@@ -22,15 +22,16 @@
             <td>{{dosya.dosyaYuklenmeTarihi | date:'dd.MM.yyyy hh:mm:ss'}}</td>
             <td>{{dosya.dosyaDuzenlenmeTarihi | date:'dd.MM.yyyy hh:mm:ss'}}</td>
             <td>
-              <button class="btn btn-outline-success" (click)="DosyaIndir()">İndir</button>
+              <button class="btn btn-outline-success" (click)="DosyaIndir(dosya)">İndir</button>
             </td>
-            <td>
-              <button class="btn btn-outline-warning" (click)="Duzenle(dosya,modalEkleDuzenle)"
-                *ngIf="servis.aktifUye.kullaniciAdminMi == 0 || servis.aktifUye.id == dosya.userId">Düzenle</button>
+            <td *ngIf="uye | async as user">
+              <button class="btn btn-outline-warning" (click)="Duzenle(dosya,modalDuzenle)"
+                *ngIf="user.kullaniciAdminMi == 1 || user.uid == dosya.userId.toString()">Düzenle</button>
             </td>
-            <td>
-              <button class="btn btn-outline-danger" (click)="Sil(dosya,modalSil)"
-                *ngIf="servis.aktifUye.kullaniciAdminMi == 0 ||  servis.aktifUye.id == dosya.userId">Sil</button>
+            <td *ngIf="uye | async as user">
+              <button class="btn btn-outline-danger" (click)="Sil(dosya)"
+                *ngIf="user.kullaniciAdminMi == 1 || user.uid == dosya.userId.toString()">Sil</button>
+
             </td>
           </tr>
         </tbody>
@@ -39,9 +40,11 @@
   </div>
 </div>
 
+
+
 <div class="modal" tabindex="-1" #modalEkleDuzenle>
-  <div class="modal-dialog">
-    <form [formGroup]="frm" (ngSubmit)="DosyaEkleDuzenle()">
+  <div class="modal-dialog" *ngIf="uye | async as user">
+    <form [formGroup]="frm">
       <div class="modal-content">
         <div class="modal-header bg-danger text-white">
           <h5 class="modal-title">{{modalBaslik}}</h5>
@@ -63,17 +66,16 @@
               <option value="1">Evet</option>
               <option value="0">Hayır</option>
             </select>
-            <input type="file" class="form-control mt-2" name="photo">
+            <input type="file" class="form-control mt-2" name="photo" (change)="DosyaEkleDuzenle($event, user)">
             <input type="hidden" class="form-control" formControlName="id">
             <input type="hidden" class="form-control" formControlName="dosyaYuklenmeTarihi">
             <input type="hidden" class="form-control" formControlName="dosyaYuklenmeTarihi">
-            <input type="hidden" class="form-control" formControlName="dosyaYukleyenKadi">
+            <input type="hidden" class="form-control" formControlName="dosyaYukleyenKadi" value="{{user.displayName}}">
             <input type="hidden" class="form-control" formControlName="userId">
           </div>
         </div>
         <div class="modal-footer">
-
-          <input type="submit" class="btn btn-outline-success" value="Kaydet">
+          <button type="button" class="btn btn-outline-success" (click)="DosyaEkleDuzenle($event,user)">Kaydet</button>
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
         </div>
       </div>
@@ -91,10 +93,48 @@
         <h6 *ngIf="secDosya">{{secDosya.dosyaAdi}} adlı Dosya Silinecektir Onaylıyor musunuz?</h6>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-outline-success" *ngIf="secDosya" (click)="DosyaSil()">Sil</button>
+        <button class="btn btn-outline-success" *ngIf="secDosya" (click)="DosyaSil(secDosya)">Sil</button>
         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
       </div>
     </div>
-
+  </div>
+</div>
+<div class="modal" tabindex="-1" #modalDuzenle>
+  <div class="modal-dialog" *ngIf="uye | async as user">
+    <form [formGroup]="frm">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">{{modalBaslik}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Dosya Adı</label>
+            <input type="text" class="form-control" formControlName="dosyaAdi">
+            <label>Dosya Boyut</label>
+            <input type="number" [min]="0" min="0" class="form-control" formControlName="dosyaBoyut">
+            <label>Dosya Boyut Türü</label>
+            <select class="form-control" formControlName="dosyaBoyutTuru">
+              <option value="1">MB</option>
+              <option value="0">GB</option>
+            </select>
+            <label>Yönetici Özel Mi?</label>
+            <select class="form-control" formControlName="dosyaAdminOzelMi">
+              <option value="1">Evet</option>
+              <option value="0">Hayır</option>
+            </select>
+            <input type="hidden" class="form-control" formControlName="id">
+            <input type="hidden" class="form-control" formControlName="dosyaYuklenmeTarihi">
+            <input type="hidden" class="form-control" formControlName="dosyaYuklenmeTarihi">
+            <input type="hidden" class="form-control" formControlName="dosyaYukleyenKadi" value="{{user.displayName}}">
+            <input type="hidden" class="form-control" formControlName="userId">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success" (click)="DosyaDuzenle($event,secDosya)">Kaydet</button>
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
